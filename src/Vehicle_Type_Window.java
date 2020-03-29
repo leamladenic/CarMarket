@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /*
@@ -125,11 +126,21 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         jButton_Edit_Type.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Edit_Type.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Edit_Type.setText("Edit");
+        jButton_Edit_Type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Edit_TypeActionPerformed(evt);
+            }
+        });
 
         jButton_Remove_Type.setBackground(new java.awt.Color(255, 51, 51));
         jButton_Remove_Type.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Remove_Type.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Remove_Type.setText("Remove");
+        jButton_Remove_Type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Remove_TypeActionPerformed(evt);
+            }
+        });
 
         jButton_Refresh.setBackground(new java.awt.Color(102, 102, 255));
         jButton_Refresh.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
@@ -211,10 +222,75 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         String name = jTextField_Name.getText();
         String description = jTextArea_Description.getText();
         
-        V_TYPE type = new V_TYPE();
-        type.execTypeQuery("add", type);
+        V_TYPE type = new V_TYPE(0, name, description);
+        
+        if(!name.trim().equals("")){
+            if(type.execTypeQuery("add", type)){
+            JOptionPane.showMessageDialog(null, "New type added", "Add type", 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Operation Failed", "Add type", 2);
+        }
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter the type name", "Empty name", 2);
+        }
+        
+        
         
     }//GEN-LAST:event_jButton_Add_TypeActionPerformed
+
+    private void jButton_Edit_TypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_TypeActionPerformed
+        
+        try{
+            Integer id = Integer.valueOf(jTextField_Id.getText());
+            String name = jTextField_Name.getText();
+            String description = jTextArea_Description.getText();
+
+            V_TYPE type = new V_TYPE(id, name, description);
+
+            if(!name.trim().equals("")){
+                if(type.execTypeQuery("edit", type)){
+                JOptionPane.showMessageDialog(null, "Type updated", "Edit type", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Operation Failed", "Edit type", 2);
+            }
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter the type name", "Empty name", 2);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " Enter a valid ID", "Invalid ID", 0);
+        }
+        
+    }//GEN-LAST:event_jButton_Edit_TypeActionPerformed
+
+    private void jButton_Remove_TypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Remove_TypeActionPerformed
+        
+        
+        
+        try{
+            Integer id = Integer.valueOf(jTextField_Id.getText());
+      
+        
+            V_TYPE type = new V_TYPE(id, "", "");
+
+            if(!jTextField_Id.getText().trim().equals("")){
+
+                int yes_or_no = JOptionPane.showConfirmDialog(null, "Do you want to delete this vehicle type?", "Delete Type", JOptionPane.YES_NO_OPTION );
+
+                if(yes_or_no == JOptionPane.YES_OPTION){
+                    if(type.execTypeQuery("remove", type)){
+                        JOptionPane.showMessageDialog(null, "Type Deleted", "Delete type", 1);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Operation Failed", "Delete type", 2);
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter the type ID", "Empty ID", 2);
+                }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " Enter a valid ID", "Invalid ID", 0);
+        }
+    }//GEN-LAST:event_jButton_Remove_TypeActionPerformed
 
     /**
      * @param args the command line arguments
