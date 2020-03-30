@@ -1,6 +1,8 @@
 
 import java.awt.Color;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
@@ -25,8 +27,32 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         Border panel_border = BorderFactory.createMatteBorder(0,0,4,0, new Color(125,125,125));
         jPanel_Title.setBorder(panel_border);
         
+        fillTypeList();
+        
         
     }
+    
+    
+    //function populate JList
+    public void fillTypeList(){
+        
+        V_TYPE type = new V_TYPE();
+       
+        
+        HashMap<String, Integer>map = type.getTypesMap();
+        DefaultListModel listModel = new DefaultListModel();
+        int i = 0;
+        
+        for(String typeName: map.keySet()){
+            
+            listModel.add(i, typeName);
+            i++;
+        }
+        
+        jList1.setModel(listModel);
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,13 +72,13 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         jTextField_Name = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_Description = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jTextField_Id = new javax.swing.JTextField();
         jButton_Add_Type = new javax.swing.JButton();
         jButton_Edit_Type = new javax.swing.JButton();
         jButton_Remove_Type = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,41 +107,29 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel1.setText("Name: ");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel2.setText("ID: ");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel3.setText(" Description:");
 
-        jTextField_Name.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jTextField_Name.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
 
         jTextArea_Description.setColumns(20);
-        jTextArea_Description.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jTextArea_Description.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jTextArea_Description.setRows(5);
         jScrollPane1.setViewportView(jTextArea_Description);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        jTextField_Id.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jTextField_Id.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
 
         jButton_Add_Type.setBackground(new java.awt.Color(0, 204, 0));
         jButton_Add_Type.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Add_Type.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Add_Type.setText("Add");
+        jButton_Add_Type.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_Add_Type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Add_TypeActionPerformed(evt);
@@ -126,6 +140,7 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         jButton_Edit_Type.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Edit_Type.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Edit_Type.setText("Edit");
+        jButton_Edit_Type.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_Edit_Type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Edit_TypeActionPerformed(evt);
@@ -136,6 +151,7 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         jButton_Remove_Type.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Remove_Type.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Remove_Type.setText("Remove");
+        jButton_Remove_Type.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_Remove_Type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Remove_TypeActionPerformed(evt);
@@ -146,6 +162,15 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         jButton_Refresh.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Refresh.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Refresh.setText("Refresh");
+        jButton_Refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jList1.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,61 +178,61 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton_Add_Type, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_Add_Type, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField_Name, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                        .addComponent(jTextField_Name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                         .addComponent(jTextField_Id))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton_Edit_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_Remove_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
-                .addGap(39, 39, 39))
+                        .addComponent(jButton_Remove_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel_Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
+                            .addComponent(jTextField_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextField_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(47, 47, 47)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addComponent(jScrollPane3))
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Add_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Edit_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Remove_Type, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,6 +317,20 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_Remove_TypeActionPerformed
 
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        
+       V_TYPE type = new V_TYPE();
+       HashMap<String, Integer>map = type.getTypesMap();
+       Integer typeId = map.get(jList1.getSelectedValue());
+       type = type.getTypeById(typeId);
+       
+       jTextField_Id.setText(type.getId().toString());
+       jTextField_Name.setText(type.getName());
+       jTextArea_Description.setText(type.getDescription());
+        
+        
+    }//GEN-LAST:event_jList1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -336,11 +375,11 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_Title;
+    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_Title;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea_Description;
     private javax.swing.JTextField jTextField_Id;
     private javax.swing.JTextField jTextField_Name;
