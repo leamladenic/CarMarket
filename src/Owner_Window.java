@@ -1,3 +1,9 @@
+
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +21,38 @@ public class Owner_Window extends javax.swing.JFrame {
      */
     public Owner_Window() {
         initComponents();
+        
+        fillJtableWithOwnersData();
+    }
+    
+    public void fillJtableWithOwnersData(){
+        
+        V_OWNER owner = new V_OWNER();
+        ArrayList<V_OWNER> ownersList = owner.ownersList();
+        
+        String[] colNames = {"ID", "First name", "Last name", "Phone", "E-mail", "Address"};
+        
+        Object[][] rows = new Object[ownersList.size()][6];
+        
+        for(int i = 0; i < ownersList.size(); i++){
+            rows[i][0] = ownersList.get(i).getId();
+            rows[i][1] = ownersList.get(i).getFname();
+            rows[i][2] = ownersList.get(i).getLname();
+            rows[i][3] = ownersList.get(i).getPhone();
+            rows[i][4] = ownersList.get(i).getEmail();
+            rows[i][5] = ownersList.get(i).getAddress();
+        }
+        
+        DefaultTableModel model = (new DefaultTableModel(rows, colNames));
+        jTable1.setModel(model);
+      
+        jTable1.setRowHeight(40);
+        jTable1.setSelectionBackground(new Color(51,153,255));
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(120);
+        
+
     }
 
     /**
@@ -48,6 +86,7 @@ public class Owner_Window extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton_Owner_Vehicles = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 238, 255));
@@ -58,16 +97,16 @@ public class Owner_Window extends javax.swing.JFrame {
 
         jLabel_Title.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
         jLabel_Title.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Title.setText("Owner");
+        jLabel_Title.setText("Owners");
 
         javax.swing.GroupLayout jPanel_TitleLayout = new javax.swing.GroupLayout(jPanel_Title);
         jPanel_Title.setLayout(jPanel_TitleLayout);
         jPanel_TitleLayout.setHorizontalGroup(
             jPanel_TitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_TitleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_TitleLayout.createSequentialGroup()
+                .addGap(618, 618, 618)
                 .addComponent(jLabel_Title)
-                .addGap(539, 539, 539))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_TitleLayout.setVerticalGroup(
             jPanel_TitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,6 +172,11 @@ public class Owner_Window extends javax.swing.JFrame {
         jButton_Refresh.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Refresh.setText("Refresh");
         jButton_Refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RefreshActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jLabel4.setText("Last name: ");
@@ -151,16 +195,29 @@ public class Owner_Window extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
+
+        jButton_Owner_Vehicles.setBackground(new java.awt.Color(204, 0, 204));
+        jButton_Owner_Vehicles.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        jButton_Owner_Vehicles.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Owner_Vehicles.setText("Owner Vehicles");
+        jButton_Owner_Vehicles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Owner_Vehicles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Owner_VehiclesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,9 +225,9 @@ public class Owner_Window extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -186,18 +243,23 @@ public class Owner_Window extends javax.swing.JFrame {
                                 .addComponent(jTextField_LName, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTextField_Phone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextField_Email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton_Add_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jButton_Add_Owner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_Edit_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_Remove_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_Remove_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(jButton_Owner_Vehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(52, 52, 52))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,13 +292,14 @@ public class Owner_Window extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Add_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Owner_Vehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Remove_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Edit_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Remove_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                    .addComponent(jButton_Add_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -260,25 +323,112 @@ public class Owner_Window extends javax.swing.JFrame {
         String lname = jTextField_LName.getText();
         String phone = jTextField_Phone.getText();
         String email = jTextField_Email.getText();
-        String address = jTextField_Email.getText();
+        String address = jTextArea_Address.getText();
         
         V_OWNER owner = new V_OWNER();
-        if(owner.addNewOwner(new V_OWNER(0, fname, lname, phone, email, address))){
-            
+        
+        if(fname.trim().equals("") || lname.trim().equals("") || phone.trim().equals("") || address.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter required informations [first name, last name, phone, email, address]", "Add owner", 2);
         }
-
+        else{
+            if(owner.addNewOwner(new V_OWNER(0, fname, lname, phone, email, address))){   
+                JOptionPane.showMessageDialog(null, "New owner added to the system", "Add owner", 1);
+            }
+            else{
+            JOptionPane.showMessageDialog(null, "Owner NOT added to the system", "Add owner", 2);
+            }
+        
+       }
+        
     }//GEN-LAST:event_jButton_Add_OwnerActionPerformed
 
     private void jButton_Edit_OwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_OwnerActionPerformed
 
         
-
+        String fname = jTextField_FName.getText();
+        String lname = jTextField_LName.getText();
+        String phone = jTextField_Phone.getText();
+        String email = jTextField_Email.getText();
+        String address = jTextArea_Address.getText();
+        
+        V_OWNER owner = new V_OWNER();
+        
+        try{
+            int ownerId = Integer.valueOf(jTextField_Id.getText());
+              
+            if(fname.trim().equals("") || lname.trim().equals("") || phone.trim().equals("") || address.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter required informations [first name, last name, phone, address]", "Edit owner", 2);
+            }
+            else{
+                if(owner.editOwnerData(new V_OWNER(ownerId, fname, lname, phone, email, address))){   
+                    JOptionPane.showMessageDialog(null, "New owner data edited", "Edit owner", 1);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Owner data NOT edited", "Edit owner", 2);
+                }
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " Enter a valid ID", "Invalid ID", 0);
+        }
+    
     }//GEN-LAST:event_jButton_Edit_OwnerActionPerformed
 
     private void jButton_Remove_OwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Remove_OwnerActionPerformed
 
+        try{
+            int ownerId = Integer.valueOf(jTextField_Id.getText());
+       
+            V_OWNER owner = new V_OWNER();
+
+            if(jTextField_Id.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null, "Please enter the Owner ID", "Empty ID field", 2);
+            }
+            else{
+           
+                int yes_or_no = JOptionPane.showConfirmDialog(null, "Do you want to delete this owner?", "Delete Owner", JOptionPane.YES_NO_OPTION );
+
+                if(yes_or_no == JOptionPane.YES_OPTION){
+
+                    if(owner.deleteOwner(ownerId)){
+                        JOptionPane.showMessageDialog(null, "Owner deleted", "Delete owner", 1);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Operation failed", "Delete owner", 2);
+                    }
+
+                }
+            }    
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " Enter a valid ID", "Invalid ID", 0);
+        }
        
     }//GEN-LAST:event_jButton_Remove_OwnerActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+       
+        int selectedRowIndex = jTable1.getSelectedRow();
+        jTextField_Id.setText(jTable1.getValueAt(selectedRowIndex, 0).toString());
+        jTextField_FName.setText(jTable1.getValueAt(selectedRowIndex, 1).toString());
+        jTextField_LName.setText(jTable1.getValueAt(selectedRowIndex, 2).toString());
+        jTextField_Phone.setText(jTable1.getValueAt(selectedRowIndex, 3).toString());
+        jTextField_Email.setText(jTable1.getValueAt(selectedRowIndex, 4).toString());
+        jTextArea_Address.setText(jTable1.getValueAt(selectedRowIndex, 5).toString());
+        
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
+        
+        fillJtableWithOwnersData();
+        
+    }//GEN-LAST:event_jButton_RefreshActionPerformed
+
+    private void jButton_Owner_VehiclesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Owner_VehiclesActionPerformed
+      
+        //TODO
+        
+    }//GEN-LAST:event_jButton_Owner_VehiclesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,6 +468,7 @@ public class Owner_Window extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add_Owner;
     private javax.swing.JButton jButton_Edit_Owner;
+    private javax.swing.JButton jButton_Owner_Vehicles;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JButton jButton_Remove_Owner;
     private javax.swing.JLabel jLabel1;
