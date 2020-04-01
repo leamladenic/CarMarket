@@ -1,3 +1,10 @@
+
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import javax.swing.border.Border;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,7 +25,15 @@ public class Main_APP_Window extends javax.swing.JFrame {
         
         jLabel_APP_Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car.png")));
         
+        Border menu_items_border = BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(238,204,194));
+        jLabel_Vehicle.setBorder(menu_items_border);
+        jLabel_VehicleType.setBorder(menu_items_border);
+        jLabel_VehicleImages.setBorder(menu_items_border);
+        jLabel_Sale.setBorder(menu_items_border);
+        jLabel_Owner.setBorder(menu_items_border);
+        jLabel_Client.setBorder(menu_items_border);
         
+        jLabel_Photo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/big_car.jpg")));
     }
 
     /**
@@ -35,12 +50,13 @@ public class Main_APP_Window extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel_APP_Icon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel_PropertyType = new javax.swing.JLabel();
+        jLabel_VehicleType = new javax.swing.JLabel();
         jLabel_VehicleImages = new javax.swing.JLabel();
         jLabel_Owner = new javax.swing.JLabel();
         jLabel_Vehicle = new javax.swing.JLabel();
         jLabel_Client = new javax.swing.JLabel();
         jLabel_Sale = new javax.swing.JLabel();
+        jLabel_Photo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,29 +93,101 @@ public class Main_APP_Window extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel_PropertyType.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
-        jLabel_PropertyType.setForeground(new java.awt.Color(255, 249, 247));
-        jLabel_PropertyType.setText("Vehicle Type");
+        jLabel_VehicleType.setBackground(new java.awt.Color(57, 38, 19));
+        jLabel_VehicleType.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
+        jLabel_VehicleType.setForeground(new java.awt.Color(255, 249, 247));
+        jLabel_VehicleType.setText("  Vehicle Type");
+        jLabel_VehicleType.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_VehicleType.setOpaque(true);
+        jLabel_VehicleType.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleTypeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleTypeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleTypeMouseExited(evt);
+            }
+        });
 
+        jLabel_VehicleImages.setBackground(new java.awt.Color(57, 38, 19));
         jLabel_VehicleImages.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel_VehicleImages.setForeground(new java.awt.Color(255, 249, 247));
-        jLabel_VehicleImages.setText("Vehicle Images");
+        jLabel_VehicleImages.setText("  Vehicle Images");
+        jLabel_VehicleImages.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_VehicleImages.setOpaque(true);
+        jLabel_VehicleImages.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleImagesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleImagesMouseExited(evt);
+            }
+        });
 
+        jLabel_Owner.setBackground(new java.awt.Color(57, 38, 19));
         jLabel_Owner.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel_Owner.setForeground(new java.awt.Color(255, 249, 247));
-        jLabel_Owner.setText("Owner");
+        jLabel_Owner.setText("  Owner");
+        jLabel_Owner.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_Owner.setOpaque(true);
+        jLabel_Owner.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_OwnerMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_OwnerMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_OwnerMouseExited(evt);
+            }
+        });
 
+        jLabel_Vehicle.setBackground(new java.awt.Color(57, 38, 19));
         jLabel_Vehicle.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel_Vehicle.setForeground(new java.awt.Color(255, 249, 247));
-        jLabel_Vehicle.setText("Vehicle");
+        jLabel_Vehicle.setText("  Vehicle");
+        jLabel_Vehicle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_Vehicle.setOpaque(true);
+        jLabel_Vehicle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleMouseExited(evt);
+            }
+        });
 
+        jLabel_Client.setBackground(new java.awt.Color(57, 38, 19));
         jLabel_Client.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel_Client.setForeground(new java.awt.Color(255, 249, 247));
-        jLabel_Client.setText("Client");
+        jLabel_Client.setText("  Client");
+        jLabel_Client.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_Client.setOpaque(true);
+        jLabel_Client.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_ClientMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_ClientMouseExited(evt);
+            }
+        });
 
+        jLabel_Sale.setBackground(new java.awt.Color(57, 38, 19));
         jLabel_Sale.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel_Sale.setForeground(new java.awt.Color(255, 249, 247));
-        jLabel_Sale.setText("Sale");
+        jLabel_Sale.setText("  Sale");
+        jLabel_Sale.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_Sale.setOpaque(true);
+        jLabel_Sale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_SaleMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_SaleMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -109,14 +197,19 @@ public class Main_APP_Window extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_Sale, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_VehicleImages, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_PropertyType, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_VehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_VehicleImages, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Sale, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -126,7 +219,7 @@ public class Main_APP_Window extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jLabel_PropertyType, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_VehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(jLabel_VehicleImages, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
@@ -135,8 +228,10 @@ public class Main_APP_Window extends javax.swing.JFrame {
                 .addComponent(jLabel_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jLabel_Sale, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 218, Short.MAX_VALUE))
+                .addGap(0, 226, Short.MAX_VALUE))
         );
+
+        jLabel_Photo.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,11 +239,13 @@ public class Main_APP_Window extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 899, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_Photo, javax.swing.GroupLayout.PREFERRED_SIZE, 1231, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel_Photo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,6 +261,111 @@ public class Main_APP_Window extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel_VehicleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleMouseEntered
+        
+        jLabel_Vehicle.setBackground(new Color(255,249,247));
+        jLabel_Vehicle.setForeground(new Color(57,38,19));
+        
+    }//GEN-LAST:event_jLabel_VehicleMouseEntered
+
+    private void jLabel_VehicleTypeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleTypeMouseExited
+        
+        jLabel_VehicleType.setBackground(new Color(57,38,19));
+        jLabel_VehicleType.setForeground(new Color(255,249,247));
+        
+    }//GEN-LAST:event_jLabel_VehicleTypeMouseExited
+
+    private void jLabel_VehicleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleMouseExited
+        
+        jLabel_Vehicle.setBackground(new Color(57,38,19));
+        jLabel_Vehicle.setForeground(new Color(255,249,247));
+        
+    }//GEN-LAST:event_jLabel_VehicleMouseExited
+
+    private void jLabel_VehicleTypeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleTypeMouseEntered
+       
+        jLabel_VehicleType.setBackground(new Color(255,249,247));
+        jLabel_VehicleType.setForeground(new Color(57,38,19));
+        
+    }//GEN-LAST:event_jLabel_VehicleTypeMouseEntered
+
+    private void jLabel_VehicleImagesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleImagesMouseEntered
+        
+        jLabel_VehicleImages.setBackground(new Color(255,249,247));
+        jLabel_VehicleImages.setForeground(new Color(57,38,19));
+        
+    }//GEN-LAST:event_jLabel_VehicleImagesMouseEntered
+
+    private void jLabel_VehicleImagesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleImagesMouseExited
+        
+        jLabel_VehicleImages.setBackground(new Color(57,38,19));
+        jLabel_VehicleImages.setForeground(new Color(255,249,247));
+        
+    }//GEN-LAST:event_jLabel_VehicleImagesMouseExited
+
+    private void jLabel_OwnerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_OwnerMouseEntered
+       
+        jLabel_Owner.setBackground(new Color(255,249,247));
+        jLabel_Owner.setForeground(new Color(57,38,19));
+        
+    }//GEN-LAST:event_jLabel_OwnerMouseEntered
+
+    private void jLabel_OwnerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_OwnerMouseExited
+       
+        jLabel_Owner.setBackground(new Color(57,38,19));
+        jLabel_Owner.setForeground(new Color(255,249,247));
+        
+    }//GEN-LAST:event_jLabel_OwnerMouseExited
+
+    private void jLabel_ClientMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ClientMouseEntered
+        
+        jLabel_Client.setBackground(new Color(255,249,247));
+        jLabel_Client.setForeground(new Color(57,38,19));
+        
+    }//GEN-LAST:event_jLabel_ClientMouseEntered
+
+    private void jLabel_ClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ClientMouseExited
+       
+        jLabel_Client.setBackground(new Color(57,38,19));
+        jLabel_Client.setForeground(new Color(255,249,247));
+        
+    }//GEN-LAST:event_jLabel_ClientMouseExited
+
+    private void jLabel_SaleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_SaleMouseEntered
+        
+        jLabel_Sale.setBackground(new Color(255,249,247));
+        jLabel_Sale.setForeground(new Color(57,38,19));
+        
+    }//GEN-LAST:event_jLabel_SaleMouseEntered
+
+    private void jLabel_SaleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_SaleMouseExited
+       
+       jLabel_Sale.setBackground(new Color(57,38,19));
+       jLabel_Sale.setForeground(new Color(255,249,247));
+       
+    }//GEN-LAST:event_jLabel_SaleMouseExited
+
+    private void jLabel_VehicleTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleTypeMouseClicked
+        
+        //open vehicle type window
+        Vehicle_Type_Window typeform = new Vehicle_Type_Window();
+        typeform.setVisible(true);
+        typeform.pack();
+        typeform.setLocationRelativeTo(null);
+        typeform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+    }//GEN-LAST:event_jLabel_VehicleTypeMouseClicked
+
+    private void jLabel_OwnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_OwnerMouseClicked
+        
+        Owner_Window ownerform = new Owner_Window();
+        ownerform.setVisible(true);
+        ownerform.pack();
+        ownerform.setLocationRelativeTo(null);
+        ownerform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+    }//GEN-LAST:event_jLabel_OwnerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -205,10 +407,11 @@ public class Main_APP_Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_APP_Icon;
     private javax.swing.JLabel jLabel_Client;
     private javax.swing.JLabel jLabel_Owner;
-    private javax.swing.JLabel jLabel_PropertyType;
+    private javax.swing.JLabel jLabel_Photo;
     private javax.swing.JLabel jLabel_Sale;
     private javax.swing.JLabel jLabel_Vehicle;
     private javax.swing.JLabel jLabel_VehicleImages;
+    private javax.swing.JLabel jLabel_VehicleType;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
