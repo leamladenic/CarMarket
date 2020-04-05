@@ -166,6 +166,9 @@ public class Main_APP_Window extends javax.swing.JFrame {
         jLabel_Client.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_Client.setOpaque(true);
         jLabel_Client.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ClientMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel_ClientMouseEntered(evt);
             }
@@ -366,6 +369,14 @@ public class Main_APP_Window extends javax.swing.JFrame {
         ownerform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
     }//GEN-LAST:event_jLabel_OwnerMouseClicked
+
+    private void jLabel_ClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ClientMouseClicked
+        Client_Window clientform = new Client_Window();
+        clientform.setVisible(true);
+        clientform.pack();
+        clientform.setLocationRelativeTo(null);
+        clientform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel_ClientMouseClicked
 
     /**
      * @param args the command line arguments
