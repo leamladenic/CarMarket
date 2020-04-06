@@ -111,7 +111,7 @@ public class V_CLIENT {
         
         PreparedStatement ps;
         
-        String addQuery = "INSERT INTO `clients`(`fname`, `lname`, `phone`, `email`, `address`) VALUES (?,?,?,?,?)";
+        String addQuery = "INSERT INTO `clients_table`(`fname`, `lname`, `phone`, `email`, `address`) VALUES (?,?,?,?,?)";
         
         
         
@@ -137,7 +137,7 @@ public class V_CLIENT {
         
         PreparedStatement ps;
         
-        String editQuery = "UPDATE `clients` SET `fname`=?,`lname`=?,`phone`=?,`email`=?,`address`=? WHERE `id`=?";
+        String editQuery = "UPDATE `clients_table` SET `fname`=?,`lname`=?,`phone`=?,`email`=?,`address`=? WHERE `id`=?";
         
         
         
@@ -163,7 +163,7 @@ public class V_CLIENT {
         
         PreparedStatement ps;
         
-        String deleteQuery = "DELETE FROM `clients` WHERE `id`=?";
+        String deleteQuery = "DELETE FROM `clients_table` WHERE `id`=?";
         
         
         
@@ -186,7 +186,7 @@ public class V_CLIENT {
         
         Statement st;
         ResultSet rs;
-        String selectQuery = "SELECT * FROM `clients`";
+        String selectQuery = "SELECT * FROM `clients_table`";
         
         try {
             st = THE_CONNECTION.getTheConnection().createStatement();
