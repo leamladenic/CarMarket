@@ -1,5 +1,10 @@
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -26,6 +31,10 @@ public class V_VEHICLE {
     private boolean cas;
     private boolean ps;
     private String problems;
+
+    V_VEHICLE(int i, int type, String price, int ownerId, String kilometers, String brand, String motor, int doors, int seats, int year, String color, String gear, boolean have_ac, boolean have_gps, boolean have_ps, boolean have_cas, String problems) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public int getId() {
         return id;
@@ -189,7 +198,37 @@ public class V_VEHICLE {
     
     //function to add a new vehicle
     public boolean addNewVehicle (V_VEHICLE vehicle){
-        return true;
+        
+        PreparedStatement ps;
+        
+        String addQuery = "INSERT INTO `vehicle_table`(`type`, `ownerId`, `price`, `kilometers`, `brand`, `motor`, `color`, `gear`, `doors`, `seats`, `year`, `ac`, `gps`, `cas`, `ps`, `problems`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try {
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(addQuery);
+            ps.setInt(1, vehicle.getType());
+            ps.setInt(2, vehicle.getOwnerId());
+            ps.setString(3, vehicle.getPrice());
+            ps.setString(4, vehicle.getKilometers());
+            ps.setString(5, vehicle.getBrand());
+            ps.setString(6, vehicle.getMotor());
+            ps.setString(7, vehicle.getColor());
+            ps.setString(8, vehicle.getGear());
+            ps.setInt(9, vehicle.getDoors());
+            ps.setInt(10, vehicle.getYear());
+            ps.setInt(11, vehicle.getSeats());
+            ps.setBoolean(12, vehicle.isAc());
+            ps.setBoolean(13, vehicle.isGps());
+            ps.setBoolean(14, vehicle.isCas());
+            ps.setBoolean(15, vehicle.isPs());
+            ps.setString(16, vehicle.getProblems());
+            
+            return(ps.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+      
     }
     
     
@@ -203,6 +242,34 @@ public class V_VEHICLE {
      public boolean removeVehicle (int vehicleId){
         return true;
     }
+     
+    public V_VEHICLE findVehicle (int vehicleId){
+        
+        PreparedStatement ps;
+        ResultSet rs;
+        V_VEHICLE vehicle = null;
+        
+        String searchQuery = "SELECT * FROM `vehicle_table` WHERE `id` = ?";
+        
+        
+        try {
+            
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(searchQuery);
+            ps.setInt(1, vehicleId);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                vehicle = new V_VEHICLE(rs.getInt("id"), rs.getInt("type"), rs.getInt("ownerId"), rs.getString("price"), rs.getString("kilometers"), rs.getString("brand"), rs.getString("motor"), rs.getString("color"), rs.getString("gear"), rs.getInt("doors"), rs.getInt("seats"), rs.getInt("year"), rs.getBoolean("ac"), rs.getBoolean("gps"), rs.getBoolean("cas"), rs.getBoolean("ps"), rs.getString("problems"));
+            }
+            
+            return vehicle;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return vehicle;
+    } 
      
     //function to return an arraylist of vehicles
      public ArrayList<V_VEHICLE> vehiclesList(){
