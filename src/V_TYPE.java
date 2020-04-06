@@ -62,7 +62,7 @@ public class V_TYPE {
         
         if(queryType.equals("add")){
             try {
-                ps = THE_CONNECTION.getTheConnection().prepareStatement("INSERT INTO `vehicle_type`(`name`, `description`) VALUES (? , ?)");
+                ps = THE_CONNECTION.getTheConnection().prepareStatement("INSERT INTO `vehicle_type_table`(`name`, `description`) VALUES (? , ?)");
                 ps.setString(1, type.getName());
                 ps.setString(2, type.getDescription());
                 
@@ -76,7 +76,7 @@ public class V_TYPE {
         
         else if(queryType.equals("edit")){
             try {
-                ps = THE_CONNECTION.getTheConnection().prepareStatement("UPDATE `vehicle_type` SET `name`= ?, `description` = ? WHERE `id`=?");
+                ps = THE_CONNECTION.getTheConnection().prepareStatement("UPDATE `vehicle_type_table` SET `name`= ?, `description` = ? WHERE `id`=?");
                 ps.setString(1, type.getName());
                 ps.setString(2, type.getDescription());
                 ps.setInt(3, type.getId());
@@ -90,7 +90,7 @@ public class V_TYPE {
         }
         else if(queryType.equals("remove")){
             try {
-                ps = THE_CONNECTION.getTheConnection().prepareStatement("DELETE FROM `vehicle_type` WHERE `id`=?");
+                ps = THE_CONNECTION.getTheConnection().prepareStatement("DELETE FROM `vehicle_type_table` WHERE `id`=?");
                 
                 ps.setInt(1, type.getId());
                 
@@ -118,7 +118,7 @@ public class V_TYPE {
         
         try {
             st = THE_CONNECTION.getTheConnection().createStatement();
-            rs = st.executeQuery("SELECT * FROM `vehicle_type`");
+            rs = st.executeQuery("SELECT * FROM `vehicle_type_table`");
             V_TYPE type;
             
             while(rs.next()){
@@ -143,7 +143,7 @@ public class V_TYPE {
         V_TYPE type = new V_TYPE();
         
         try {
-            ps = THE_CONNECTION.getTheConnection().prepareStatement("SELECT * FROM `vehicle_type` WHERE `id` = ?");
+            ps = THE_CONNECTION.getTheConnection().prepareStatement("SELECT * FROM `vehicle_type_table` WHERE `id` = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
