@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -19,11 +20,27 @@ public class Vehicle_Window extends javax.swing.JFrame {
     /**
      * Creates new form Vehicle_Window
      */
+    
+    V_TYPE type = new V_TYPE();
+    HashMap<String, Integer> map = type.getTypesMap();
+    
+    
     public Vehicle_Window() {
         initComponents();
         
         Border panel_border = BorderFactory.createMatteBorder(0,0,4,0, new Color(91,121,91));
         jPanel_Title1.setBorder(panel_border);
+        
+        bindCombo();
+    }
+    
+    //function to populate jcombobox with types data
+    
+    public void bindCombo(){
+       
+        for(String s : map.keySet()){
+            jComboBox_Type.addItem(s);
+        }
     }
 
     /**
@@ -111,7 +128,7 @@ public class Vehicle_Window extends javax.swing.JFrame {
         jLabel1.setText("Type:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-        jLabel4.setText("Price:");
+        jLabel4.setText("Price (€):");
 
         jTextField_Price.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
 
@@ -161,10 +178,16 @@ public class Vehicle_Window extends javax.swing.JFrame {
             }
         });
 
-        jButton_Search_Vehicle.setBackground(new java.awt.Color(0, 204, 153));
+        jButton_Search_Vehicle.setBackground(new java.awt.Color(0, 102, 0));
         jButton_Search_Vehicle.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Search_Vehicle.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Search_Vehicle.setText("Search");
+        jButton_Search_Vehicle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Search_Vehicle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Search_VehicleActionPerformed(evt);
+            }
+        });
 
         jTextField_Brand.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
 
@@ -174,7 +197,6 @@ public class Vehicle_Window extends javax.swing.JFrame {
         jTextField_Motor.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
 
         jComboBox_Type.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        jComboBox_Type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jSpinner_Doors.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
 
@@ -224,6 +246,7 @@ public class Vehicle_Window extends javax.swing.JFrame {
         jLabel14.setText("Problems:");
 
         jTextArea_Problems.setColumns(20);
+        jTextArea_Problems.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
         jTextArea_Problems.setRows(5);
         jScrollPane1.setViewportView(jTextArea_Problems);
 
@@ -252,7 +275,14 @@ public class Vehicle_Window extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_Add_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton_Edit_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton_Remove_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -261,68 +291,57 @@ public class Vehicle_Window extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField_Price, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_OwnersId, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                            .addComponent(jTextField_Kilometers, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField_Price)
+                            .addComponent(jTextField_OwnersId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                            .addComponent(jTextField_Kilometers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextField_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton_Search_Vehicle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jTextField_Brand, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                            .addComponent(jComboBox_Type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField_Motor, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextField_Brand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                            .addComponent(jComboBox_Type, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField_Motor))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(66, 66, 66)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel14)
-                                        .addComponent(jLabel10)))
+                                    .addGap(123, 123, 123)
+                                    .addComponent(jLabel10))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(jLabel13)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jSpinner_Seats, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jSpinner_Doors, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jSpinner_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1)
-                                        .addGap(56, 56, 56)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckBox_AC)
-                                    .addComponent(jCheckBox_CAS)
-                                    .addComponent(jCheckBox_PS)
-                                    .addComponent(jCheckBox_GPS))
-                                .addGap(56, 56, 56))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jComboBox_Gear, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox_Color, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(310, 310, 310))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton_Add_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton_Edit_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton_Remove_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                        .addComponent(jButton_Show_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(56, Short.MAX_VALUE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jButton_Show_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBox_Gear, 0, 248, Short.MAX_VALUE)
+                                            .addComponent(jSpinner_Seats, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSpinner_Doors, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSpinner_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jComboBox_Color, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckBox_AC)
+                                            .addComponent(jCheckBox_CAS)
+                                            .addComponent(jCheckBox_PS)
+                                            .addComponent(jCheckBox_GPS))))
+                                .addGap(56, 56, 56))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,13 +351,17 @@ public class Vehicle_Window extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton_Search_Vehicle)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton_Search_Vehicle)
+                                .addComponent(jSpinner_Doors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2)
                             .addComponent(jTextField_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(jSpinner_Seats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -350,23 +373,19 @@ public class Vehicle_Window extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField_Kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField_Kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(jComboBox_Gear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jSpinner_Doors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jSpinner_Seats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel13)
+                        .addGap(101, 101, 101)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jSpinner_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jComboBox_Color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jCheckBox_AC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -376,24 +395,24 @@ public class Vehicle_Window extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox_GPS)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel12)
-                    .addComponent(jComboBox_Color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Motor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel11)
-                    .addComponent(jComboBox_Gear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField_Brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_Motor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Add_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Edit_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Remove_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Show_Vehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                .addGap(77, 77, 77))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -412,7 +431,50 @@ public class Vehicle_Window extends javax.swing.JFrame {
 
     private void jButton_Add_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_VehicleActionPerformed
 
+        
+       try{
+            int type = map.get(jComboBox_Type.getSelectedItem().toString());
+            int ownerId = Integer.valueOf(jTextField_OwnersId.getText());
+            int doors = Integer.valueOf(jSpinner_Doors.getValue().toString());
+            int seats = Integer.valueOf(jSpinner_Seats.getValue().toString());
+            int year = Integer.valueOf(jSpinner_Year.getValue().toString());
+            
+            boolean have_ac = false;
+            boolean have_gps = false;
+            boolean have_ps = false;
+            boolean have_cas = false;
+            
+            //check if vehicle have ac, gps, ps or/and cas
+            if(jCheckBox_AC.isSelected() )have_ac = true;
+            if(jCheckBox_GPS.isSelected() )have_gps = true;
+            if(jCheckBox_PS.isSelected() )have_ps = true;
+            if(jCheckBox_CAS.isSelected() )have_cas = true;
+            
+            
+            String price = String.valueOf(jTextField_Price.getText());
+            String kilometers = String.valueOf(jTextField_Kilometers.getText());
+            String brand = String.valueOf(jTextField_Brand.getText());
+            String motor = String.valueOf(jTextField_Motor.getText());
+            String problems = String.valueOf(jTextArea_Problems.getText());
+            String color = String.valueOf(jComboBox_Color.getSelectedItem());
+            String gear = String.valueOf(jComboBox_Gear.getSelectedItem());
+            
+            V_VEHICLE vehicle = new V_VEHICLE(0, type, ownerId, price, kilometers, brand, motor, color, gear, doors, seats, year, have_ac, have_ps, have_cas, have_gps, problems);
+            
+            if(new V_VEHICLE().addNewVehicle(vehicle)){
+                JOptionPane.showMessageDialog(null, "New vehicle added to the system", "Add vehicle", 1);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Vehicle NOT added to the system", "Add vehicle", 2);
+            }
+            
+       }
+       catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " ERROR", "ERROR", 0);
+        }
        
+       
+        
     }//GEN-LAST:event_jButton_Add_VehicleActionPerformed
 
     private void jButton_Edit_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_VehicleActionPerformed
@@ -462,6 +524,42 @@ public class Vehicle_Window extends javax.swing.JFrame {
     private void jButton_Show_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Show_VehicleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_Show_VehicleActionPerformed
+
+    private void jButton_Search_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Search_VehicleActionPerformed
+        
+        try{
+            int vehicleId = Integer.valueOf(jTextField_Id.getText());
+            V_VEHICLE vehicle = new V_VEHICLE().findVehicle(vehicleId);
+            
+            if(vehicle != null){
+                jTextField_Price.setText(vehicle.getPrice());
+                jTextField_OwnersId.setText(String.valueOf(vehicle.getOwnerId()));
+                jTextField_Kilometers.setText(vehicle.getKilometers());
+                jTextField_Brand.setText(vehicle.getBrand());
+                jTextField_Motor.setText(vehicle.getMotor());
+                jComboBox_Type.setSelectedItem(map.get(vehicle.getType()));
+                jComboBox_Color.setSelectedItem(map.get(vehicle.getColor()));
+                jComboBox_Gear.setSelectedItem(map.get(vehicle.getGear()));
+                jSpinner_Doors.setValue(vehicle.getDoors());
+                jSpinner_Seats.setValue(vehicle.getSeats());
+                jSpinner_Year.setValue(vehicle.getYear());
+                
+                if(vehicle.isAc()) jCheckBox_AC.setSelected(true);
+                if(vehicle.isGps()) jCheckBox_GPS.setSelected(true);
+                if(vehicle.isCas()) jCheckBox_CAS.setSelected(true);
+                if(vehicle.isPs()) jCheckBox_PS.setSelected(true);
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Property Not Found", "ERROR", 0);
+            }
+            
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " ERROR", "ERROR", 0);
+        }
+        
+    }//GEN-LAST:event_jButton_Search_VehicleActionPerformed
 
     /**
      * @param args the command line arguments
