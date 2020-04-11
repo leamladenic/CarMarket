@@ -1,7 +1,9 @@
 
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -21,6 +23,9 @@ public class Owner_Window extends javax.swing.JFrame {
      */
     public Owner_Window() {
         initComponents();
+        
+        Border panel_border = BorderFactory.createMatteBorder(0,0,4,0, new Color(0,76,153));
+        jPanel_Title.setBorder(panel_border);
         
         fillJtableWithOwnersData();
     }
@@ -333,6 +338,13 @@ public class Owner_Window extends javax.swing.JFrame {
         else{
             if(owner.addNewOwner(new V_OWNER(0, fname, lname, phone, email, address))){   
                 JOptionPane.showMessageDialog(null, "New owner added to the system", "Add owner", 1);
+                
+                        
+                        jTextField_FName.setText("");
+                        jTextField_LName.setText("");
+                        jTextField_Phone.setText("");
+                        jTextField_Email.setText("");
+                        jTextArea_Address.setText("");
             }
             else{
             JOptionPane.showMessageDialog(null, "Owner NOT added to the system", "Add owner", 2);
@@ -362,6 +374,13 @@ public class Owner_Window extends javax.swing.JFrame {
             else{
                 if(owner.editOwnerData(new V_OWNER(ownerId, fname, lname, phone, email, address))){   
                     JOptionPane.showMessageDialog(null, "New owner data edited", "Edit owner", 1);
+                    
+                        jTextField_Id.setText("");
+                        jTextField_FName.setText("");
+                        jTextField_LName.setText("");
+                        jTextField_Phone.setText("");
+                        jTextField_Email.setText("");
+                        jTextArea_Address.setText("");
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Owner data NOT edited", "Edit owner", 2);
@@ -392,6 +411,9 @@ public class Owner_Window extends javax.swing.JFrame {
 
                     if(owner.deleteOwner(ownerId)){
                         JOptionPane.showMessageDialog(null, "Owner deleted", "Delete owner", 1);
+                        
+                        jTextField_Id.setText("");
+                        
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Operation failed", "Delete owner", 2);
