@@ -365,6 +365,14 @@ public class Client_Window extends javax.swing.JFrame {
 
                     if(client.deleteClient(clientId)){
                         JOptionPane.showMessageDialog(null, "Client deleted", "Delete Client", 1);
+                        
+                        jTextField_Id.setText("");
+                        jTextField_FName.setText("");
+                        jTextField_LName.setText("");
+                        jTextField_Phone.setText("");
+                        jTextField_Email.setText("");
+                        jTextArea_Address.setText("");
+                        
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Operation failed", "Delete Client", 2);
@@ -393,6 +401,13 @@ public class Client_Window extends javax.swing.JFrame {
 
             if(fname.trim().equals("") || lname.trim().equals("") || phone.trim().equals("") || address.trim().equals("")){
                 JOptionPane.showMessageDialog(null, "Please enter required informations [first name, last name, phone, address]", "Edit client", 2);
+                
+                        jTextField_Id.setText("");
+                        jTextField_FName.setText("");
+                        jTextField_LName.setText("");
+                        jTextField_Phone.setText("");
+                        jTextField_Email.setText("");
+                        jTextArea_Address.setText("");
             }
             else{
                 if(client.editClientData(new V_CLIENT(clientId, fname, lname, phone, email, address))){
@@ -426,6 +441,13 @@ public class Client_Window extends javax.swing.JFrame {
         else{
             if(client.addNewClient(new V_CLIENT(0, fname, lname, phone, email, address))){
                 JOptionPane.showMessageDialog(null, "New client added to the system", "Add owner", 1);
+                
+                        
+                        jTextField_FName.setText("");
+                        jTextField_LName.setText("");
+                        jTextField_Phone.setText("");
+                        jTextField_Email.setText("");
+                        jTextArea_Address.setText("");
             }
             else{
                 JOptionPane.showMessageDialog(null, "Client NOT added to the system", "Add owner", 2);
