@@ -2,6 +2,7 @@
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -214,8 +215,8 @@ public class V_VEHICLE {
             ps.setString(7, vehicle.getColor());
             ps.setString(8, vehicle.getGear());
             ps.setInt(9, vehicle.getDoors());
-            ps.setInt(10, vehicle.getYear());
-            ps.setInt(11, vehicle.getSeats());
+            ps.setInt(10, vehicle.getSeats());
+            ps.setInt(11, vehicle.getYear());
             ps.setBoolean(12, vehicle.isAc());
             ps.setBoolean(13, vehicle.isGps());
             ps.setBoolean(14, vehicle.isCas());
@@ -234,13 +235,60 @@ public class V_VEHICLE {
     
     //function to edit a selected vehicle
     public boolean editVehicle (V_VEHICLE vehicle){
-        return true;
+        
+       PreparedStatement ps;
+        
+        String editQuery = "UPDATE `vehicle_table` SET `type`=?,`ownerId`=?,`price`=?,`kilometers`=?,`brand`=?,`motor`=?,`color`=?,`gear`=?,`doors`=?,`seats`=?,`year`=?,`ac`=?,`gps`=?,`cas`=?,`ps`=?,`problems`=? WHERE `id` = ?";
+        
+        try {
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(editQuery);
+            ps.setInt(1, vehicle.getType());
+            ps.setInt(2, vehicle.getOwnerId());
+            ps.setString(3, vehicle.getPrice());
+            ps.setString(4, vehicle.getKilometers());
+            ps.setString(5, vehicle.getBrand());
+            ps.setString(6, vehicle.getMotor());
+            ps.setString(7, vehicle.getColor());
+            ps.setString(8, vehicle.getGear());
+            ps.setInt(9, vehicle.getDoors());
+            ps.setInt(10, vehicle.getSeats());
+            ps.setInt(11, vehicle.getYear());
+            ps.setBoolean(12, vehicle.isAc());
+            ps.setBoolean(13, vehicle.isGps());
+            ps.setBoolean(14, vehicle.isCas());
+            ps.setBoolean(15, vehicle.isPs());
+            ps.setString(16, vehicle.getProblems());
+            ps.setInt(17, vehicle.getId());
+            
+            return(ps.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     
     //function to delete a selected vehicle
      public boolean removeVehicle (int vehicleId){
-        return true;
+         
+        PreparedStatement ps;
+        
+        String deleteQuery = "DELETE FROM `vehicle_table` WHERE `id`=?";
+        
+        
+        
+        try {
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery);
+            
+            ps.setInt(1, vehicleId);
+            
+            return (ps.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(V_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
      
     public V_VEHICLE findVehicle (int vehicleId){
@@ -273,7 +321,30 @@ public class V_VEHICLE {
      
     //function to return an arraylist of vehicles
      public ArrayList<V_VEHICLE> vehiclesList(){
-         return new ArrayList<V_VEHICLE>();
-     }
+         
+        ArrayList<V_VEHICLE> list = new ArrayList<V_VEHICLE>();
+        Statement st;
+        ResultSet rs;
+        String selectQuery = "SELECT * FROM `vehicle_table`";
+        
+        try {
+            st = THE_CONNECTION.getTheConnection().createStatement();
+            rs = st.executeQuery(selectQuery);
+            
+            V_VEHICLE vehicle;
+            
+            while(rs.next()){
+                vehicle = new V_VEHICLE(rs.getInt("id"), rs.getInt("type"), rs.getInt("ownerId"), rs.getString("price"), rs.getString("kilometers"), rs.getString("brand"), rs.getString("motor"), rs.getString("color"), rs.getString("gear"), rs.getInt("doors"), rs.getInt("seats"), rs.getInt("year"), rs.getBoolean("ac"), rs.getBoolean("gps"), rs.getBoolean("cas"), rs.getBoolean("ps"), rs.getString("problems"));
+                
+                list.add(vehicle);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+     
      
 }
