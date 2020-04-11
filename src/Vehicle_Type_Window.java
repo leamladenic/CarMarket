@@ -257,6 +257,12 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
         if(!name.trim().equals("")){
             if(type.execTypeQuery("add", type)){
             JOptionPane.showMessageDialog(null, "New type added", "Add type", 1);
+            
+            
+            jTextField_Name.setText("");
+            jTextArea_Description.setText("");
+            
+            
         } else {
             JOptionPane.showMessageDialog(null, "Operation Failed", "Add type", 2);
         }
@@ -280,6 +286,11 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
             if(!name.trim().equals("")){
                 if(type.execTypeQuery("edit", type)){
                 JOptionPane.showMessageDialog(null, "Type updated", "Edit type", 1);
+                
+                jTextField_Id.setText("");
+                jTextField_Name.setText("");
+                jTextArea_Description.setText("");
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Operation Failed", "Edit type", 2);
             }
@@ -309,6 +320,11 @@ public class Vehicle_Type_Window extends javax.swing.JFrame {
                 if(yes_or_no == JOptionPane.YES_OPTION){
                     if(type.execTypeQuery("remove", type)){
                         JOptionPane.showMessageDialog(null, "Type Deleted", "Delete type", 1);
+                        
+                        jTextField_Id.setText("");
+                        jTextField_Name.setText("");
+                        jTextArea_Description.setText("");
+                        
                     } else {
                         JOptionPane.showMessageDialog(null, "Operation Failed", "Delete type", 2);
                     }
