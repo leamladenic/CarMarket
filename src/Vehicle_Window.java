@@ -1,7 +1,9 @@
 
 import java.awt.Color;
+import java.util.Calendar;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
@@ -199,16 +201,19 @@ public class Vehicle_Window extends javax.swing.JFrame {
         jComboBox_Type.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
 
         jSpinner_Doors.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
+        jSpinner_Doors.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jLabel9.setText("Seats:");
 
         jSpinner_Seats.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
+        jSpinner_Seats.setModel(new javax.swing.SpinnerNumberModel(0, 0, 20, 1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jLabel10.setText("Year:");
 
         jSpinner_Year.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
+        jSpinner_Year.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(2000), Integer.valueOf(1960), null, Integer.valueOf(1)));
         jSpinner_Year.setValue(1960);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
@@ -433,6 +438,80 @@ public class Vehicle_Window extends javax.swing.JFrame {
 
         
        try{
+            int current_year = Calendar.getInstance().get(Calendar.YEAR);
+            
+            int type = map.get(jComboBox_Type.getSelectedItem().toString());
+            int ownerId = Integer.valueOf(jTextField_OwnersId.getText());
+            int doors = Integer.valueOf(jSpinner_Doors.getValue().toString());
+            int seats = Integer.valueOf(jSpinner_Seats.getValue().toString());
+            int year = Integer.valueOf(jSpinner_Year.getValue().toString());
+            
+            
+            
+            boolean have_ac = false;
+            boolean have_gps = false;
+            boolean have_ps = false;
+            boolean have_cas = false;
+            
+            //check if vehicle have ac, gps, ps or/and cas
+            if(jCheckBox_AC.isSelected() )have_ac = true;
+            if(jCheckBox_GPS.isSelected() )have_gps = true;
+            if(jCheckBox_PS.isSelected() )have_ps = true;
+            if(jCheckBox_CAS.isSelected() )have_cas = true;
+            
+            
+            String price = String.valueOf(jTextField_Price.getText());
+            String kilometers = String.valueOf(jTextField_Kilometers.getText());
+            String brand = String.valueOf(jTextField_Brand.getText());
+            String motor = String.valueOf(jTextField_Motor.getText());
+            String problems = String.valueOf(jTextArea_Problems.getText());
+            String color = String.valueOf(jComboBox_Color.getSelectedItem());
+            String gear = String.valueOf(jComboBox_Gear.getSelectedItem());
+            
+            V_VEHICLE vehicle = new V_VEHICLE(0, type, ownerId, price, kilometers, brand, motor, color, gear, doors, seats, year, have_ac, have_ps, have_cas, have_gps, problems);
+            
+            if(new V_VEHICLE().addNewVehicle(vehicle)&& year< current_year){
+                
+                JOptionPane.showMessageDialog(null, "New vehicle added to the system", "Add vehicle", 1);
+                
+                jTextField_Id.setText("");
+                        jTextField_Price.setText("");
+                        jTextField_OwnersId.setText("");
+                        jTextField_Kilometers.setText("");
+                        jTextField_Brand.setText("");
+                        jTextField_Motor.setText("");
+                        
+                        jComboBox_Color.setSelectedIndex(0);
+                        jComboBox_Gear.setSelectedIndex(0);
+                        jSpinner_Doors.setValue(0);
+                        jSpinner_Seats.setValue(0);
+                        jSpinner_Year.setValue(0);
+                        
+                        jCheckBox_AC.setSelected(false);
+                        jCheckBox_GPS.setSelected(false);
+                        jCheckBox_CAS.setSelected(false);
+                        jCheckBox_PS.setSelected(false);
+                        
+                        jTextArea_Problems.setText("");
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Vehicle NOT added to the system", "Add vehicle", 2);
+            }
+            
+       }
+       catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " ERROR", "ERROR", 0);
+        }
+       
+       
+        
+    }//GEN-LAST:event_jButton_Add_VehicleActionPerformed
+
+    private void jButton_Edit_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_VehicleActionPerformed
+
+         try{
+            int id = Integer.valueOf(jTextField_Id.getText());
             int type = map.get(jComboBox_Type.getSelectedItem().toString());
             int ownerId = Integer.valueOf(jTextField_OwnersId.getText());
             int doors = Integer.valueOf(jSpinner_Doors.getValue().toString());
@@ -459,51 +538,86 @@ public class Vehicle_Window extends javax.swing.JFrame {
             String color = String.valueOf(jComboBox_Color.getSelectedItem());
             String gear = String.valueOf(jComboBox_Gear.getSelectedItem());
             
-            V_VEHICLE vehicle = new V_VEHICLE(0, type, ownerId, price, kilometers, brand, motor, color, gear, doors, seats, year, have_ac, have_ps, have_cas, have_gps, problems);
+            V_VEHICLE vehicle = new V_VEHICLE(id, type, ownerId, price, kilometers, brand, motor, color, gear, doors, seats, year, have_ac, have_ps, have_cas, have_gps, problems);
             
-            if(new V_VEHICLE().addNewVehicle(vehicle)){
-                JOptionPane.showMessageDialog(null, "New vehicle added to the system", "Add vehicle", 1);
+            if(new V_VEHICLE().editVehicle(vehicle)){
+                JOptionPane.showMessageDialog(null, "Vehicle updated", "Edit vehicle", 1);
+                
+                jTextField_Id.setText("");
+                        jTextField_Price.setText("");
+                        jTextField_OwnersId.setText("");
+                        jTextField_Kilometers.setText("");
+                        jTextField_Brand.setText("");
+                        jTextField_Motor.setText("");
+                        
+                        jComboBox_Color.setSelectedIndex(0);
+                        jComboBox_Gear.setSelectedIndex(0);
+                        jSpinner_Doors.setValue(0);
+                        jSpinner_Seats.setValue(0);
+                        jSpinner_Year.setValue(0);
+                        
+                        jCheckBox_AC.setSelected(false);
+                        jCheckBox_GPS.setSelected(false);
+                        jCheckBox_CAS.setSelected(false);
+                        jCheckBox_PS.setSelected(false);
+                        
+                        jTextArea_Problems.setText("");
             }
             else{
-                JOptionPane.showMessageDialog(null, "Vehicle NOT added to the system", "Add vehicle", 2);
+                JOptionPane.showMessageDialog(null, "Vehicle NOT updated", "Edit vehicle", 2);
             }
             
        }
        catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage() + " ERROR", "ERROR", 0);
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " Please enter valid vehicle ID and owner ID", "Invalid Data", 0);
         }
-       
-       
-        
-    }//GEN-LAST:event_jButton_Add_VehicleActionPerformed
-
-    private void jButton_Edit_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_VehicleActionPerformed
-
-        
         
     }//GEN-LAST:event_jButton_Edit_VehicleActionPerformed
 
     private void jButton_Remove_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Remove_VehicleActionPerformed
 
         try{
-            int clientId = Integer.valueOf(jTextField_Id.getText());
+            int vehicletId = Integer.valueOf(jTextField_Id.getText());
 
-            V_CLIENT client = new V_CLIENT();
+            V_VEHICLE vehicle = new V_VEHICLE();
 
             if(jTextField_Id.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null, "Please enter the Client ID", "Empty ID field", 2);
+                JOptionPane.showMessageDialog(null, "Please enter the Vehicle ID", "Empty ID field", 2);
             }
             else{
 
-                int yes_or_no = JOptionPane.showConfirmDialog(null, "Do you want to delete this owner?", "Delete Client", JOptionPane.YES_NO_OPTION );
+                int yes_or_no = JOptionPane.showConfirmDialog(null, "Do you want to delete this vehicle?", "Delete Client", JOptionPane.YES_NO_OPTION );
 
                 if(yes_or_no == JOptionPane.YES_OPTION){
 
-                    if(client.deleteClient(clientId)){
-                        JOptionPane.showMessageDialog(null, "Client deleted", "Delete Client", 1);
+                    if(vehicle.removeVehicle(vehicletId)){
+                        JOptionPane.showMessageDialog(null, "Vehicle deleted", "Delete Vehicle", 1);
+                        
+                        //clear all fields after deleting
+                        jTextField_Id.setText("");
+                        jTextField_Price.setText("");
+                        jTextField_OwnersId.setText("");
+                        jTextField_Kilometers.setText("");
+                        jTextField_Brand.setText("");
+                        jTextField_Motor.setText("");
+                        
+                        jComboBox_Color.setSelectedIndex(0);
+                        jComboBox_Gear.setSelectedIndex(0);
+                        jSpinner_Doors.setValue(0);
+                        jSpinner_Seats.setValue(0);
+                        jSpinner_Year.setValue(0);
+                        
+                        jCheckBox_AC.setSelected(false);
+                        jCheckBox_GPS.setSelected(false);
+                        jCheckBox_CAS.setSelected(false);
+                        jCheckBox_PS.setSelected(false);
+                        
+                        jTextArea_Problems.setText("");
+                        
+                        
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Operation failed", "Delete Client", 2);
+                        JOptionPane.showMessageDialog(null, "Operation failed", "Delete Vehicle", 2);
                     }
 
                 }
@@ -522,7 +636,14 @@ public class Vehicle_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox_GPSActionPerformed
 
     private void jButton_Show_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Show_VehicleActionPerformed
-        // TODO add your handling code here:
+        
+        //show all vehicles
+        Show_Vehicles_Window vehicleform = new Show_Vehicles_Window();
+        vehicleform.setVisible(true);
+        vehicleform.pack();
+        vehicleform.setLocationRelativeTo(null);
+        vehicleform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }//GEN-LAST:event_jButton_Show_VehicleActionPerformed
 
     private void jButton_Search_VehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Search_VehicleActionPerformed
@@ -537,12 +658,19 @@ public class Vehicle_Window extends javax.swing.JFrame {
                 jTextField_Kilometers.setText(vehicle.getKilometers());
                 jTextField_Brand.setText(vehicle.getBrand());
                 jTextField_Motor.setText(vehicle.getMotor());
-                jComboBox_Type.setSelectedItem(map.get(vehicle.getType()));
+                
+                for(Object type : map.keySet()){
+                    if(map.get(type).equals(vehicle.getType())){
+                        jComboBox_Type.setSelectedItem(type);
+                    }
+                }
+                
                 jComboBox_Color.setSelectedItem(map.get(vehicle.getColor()));
                 jComboBox_Gear.setSelectedItem(map.get(vehicle.getGear()));
                 jSpinner_Doors.setValue(vehicle.getDoors());
                 jSpinner_Seats.setValue(vehicle.getSeats());
                 jSpinner_Year.setValue(vehicle.getYear());
+                jTextArea_Problems.setText(vehicle.getProblems());
                 
                 if(vehicle.isAc()) jCheckBox_AC.setSelected(true);
                 if(vehicle.isGps()) jCheckBox_GPS.setSelected(true);
@@ -551,7 +679,7 @@ public class Vehicle_Window extends javax.swing.JFrame {
                 
             }
             else{
-                JOptionPane.showMessageDialog(null, "Property Not Found", "ERROR", 0);
+                JOptionPane.showMessageDialog(null, "Vehicle Not Found", "ERROR", 0);
             }
             
         }
