@@ -346,5 +346,37 @@ public class V_VEHICLE {
         return list;
     }
      
-     
-}
+      public ArrayList<V_VEHICLE> vehiclesListByType(int vehicleType){
+
+            ArrayList<V_VEHICLE> list = new ArrayList<V_VEHICLE>();
+            PreparedStatement ps;
+            ResultSet rs;
+            String selectQuery = "SELECT * FROM `vehicle_table` WHERE `type`=?";
+
+            try {
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+                ps.setInt(1, vehicleType);
+                rs = ps.executeQuery();
+
+                V_VEHICLE vehicle;
+
+                while(rs.next()){
+                    vehicle = new V_VEHICLE(rs.getInt("id"), rs.getInt("type"), rs.getInt("ownerId"), rs.getString("price"), rs.getString("kilometers"), rs.getString("brand"), rs.getString("motor"), rs.getString("color"), rs.getString("gear"), rs.getInt("doors"), rs.getInt("seats"), rs.getInt("year"), rs.getBoolean("ac"), rs.getBoolean("gps"), rs.getBoolean("cas"), rs.getBoolean("ps"), rs.getString("problems"));
+
+                    list.add(vehicle);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return list;
+        }
+
+
+    }
+
+
+//function to return a list of vehicle depending on the selected type
+
+   
