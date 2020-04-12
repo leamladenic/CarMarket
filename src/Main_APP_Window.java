@@ -118,6 +118,9 @@ public class Main_APP_Window extends javax.swing.JFrame {
         jLabel_VehicleImages.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_VehicleImages.setOpaque(true);
         jLabel_VehicleImages.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleImagesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel_VehicleImagesMouseEntered(evt);
             }
@@ -151,6 +154,9 @@ public class Main_APP_Window extends javax.swing.JFrame {
         jLabel_Vehicle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_Vehicle.setOpaque(true);
         jLabel_Vehicle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_VehicleMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel_VehicleMouseEntered(evt);
             }
@@ -377,6 +383,22 @@ public class Main_APP_Window extends javax.swing.JFrame {
         clientform.setLocationRelativeTo(null);
         clientform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel_ClientMouseClicked
+
+    private void jLabel_VehicleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleMouseClicked
+        Vehicle_Window typeform = new Vehicle_Window();
+        typeform.setVisible(true);
+        typeform.pack();
+        typeform.setLocationRelativeTo(null);
+        typeform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel_VehicleMouseClicked
+
+    private void jLabel_VehicleImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_VehicleImagesMouseClicked
+        Vehicle_Images_Window imageform = new Vehicle_Images_Window();
+        imageform.setVisible(true);
+        imageform.pack();
+        imageform.setLocationRelativeTo(null);
+        imageform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel_VehicleImagesMouseClicked
 
     /**
      * @param args the command line arguments
