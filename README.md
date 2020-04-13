@@ -5,5 +5,5 @@ Full operating app for Car Market employees, where they can add new clients, own
 App is functional with mySQL database (through XAMPP server), which contains seven tables. 
 
 ## How to start
-I was using XAMPP server panel (version 3.2.4) where you can start MySQL and Apache server. There is possibility you will need to change port numbers, which you can do directly from this panel (Logs and Config buttons). 
+I was using XAMPP server panel (version 3.2.4) where you can start MySQL and Apache server. There is possibility you will need to change port numbers, which you can do directly from this panel (Logs and Config buttons). Also from XAMPP localhost you can directly start PhpMyAdmin.
 
