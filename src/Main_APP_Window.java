@@ -34,6 +34,21 @@ public class Main_APP_Window extends javax.swing.JFrame {
         jLabel_Client.setBorder(menu_items_border);
         
         jLabel_Photo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/big_car.jpg")));
+        
+        /*
+        Foreign keys to our DB: 
+        1. foreign key : vehicle_table & vehicle_type_table
+        ALTER TABLE vehicle_table ADD CONSTRAINT fk_type_id FOREIGN KEY (ownerId) REFERENCES vehicle_type_table(type) on UPDATE CASCADE on DELETE CASCADE;
+        2. foreign key : owners_table & vehicle_type_table
+        ALTER TABLE vehicle_table ADD CONSTRAINT fk_owner_id FOREIGN KEY (ownerId) REFERENCES owners_table(id) on UPDATE CASCADE on DELETE CASCADE;
+        3. foreign key : vehicle_images & vehicle_table
+        ALTER TABLE vehicle_images ADD CONSTRAINT fk_vehicle_id FOREIGN KEY (vehicle_id) REFERENCES vehicle_table(id) on UPDATE CASCADE on DELETE CASCADE;
+        4. foreign key : sale_table & vehicle_table
+        4. foreign key : sale_table & client_table
+        ALTER TABLE sale_table ADD CONSTRAINT fk_vehicle_id FOREIGN KEY (vehicle_id) REFERENCES vehicle_table(id) on UPDATE CASCADE on DELETE CASCADE;
+        ALTER TABLE sale_table ADD CONSTRAINT fk_client_id FOREIGN KEY (client_id) REFERENCES clients_table(id) on UPDATE CASCADE on DELETE CASCADE;
+        */
+        
     }
 
     /**
@@ -190,6 +205,9 @@ public class Main_APP_Window extends javax.swing.JFrame {
         jLabel_Sale.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_Sale.setOpaque(true);
         jLabel_Sale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_SaleMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel_SaleMouseEntered(evt);
             }
@@ -399,6 +417,14 @@ public class Main_APP_Window extends javax.swing.JFrame {
         imageform.setLocationRelativeTo(null);
         imageform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel_VehicleImagesMouseClicked
+
+    private void jLabel_SaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_SaleMouseClicked
+        Sale_Window saleform = new Sale_Window();
+        saleform.setVisible(true);
+        saleform.pack();
+        saleform.setLocationRelativeTo(null);
+        saleform.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel_SaleMouseClicked
 
     /**
      * @param args the command line arguments
