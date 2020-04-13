@@ -1,11 +1,16 @@
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
@@ -372,11 +377,140 @@ public class V_VEHICLE {
 
             return list;
         }
+      
+      public ArrayList<V_VEHICLE> vehiclesListByOwner(int ownerId){
 
+            ArrayList<V_VEHICLE> list = new ArrayList<V_VEHICLE>();
+            PreparedStatement ps;
+            ResultSet rs;
+            String selectQuery = "SELECT * FROM `vehicle_table` WHERE `ownerId`=?";
 
+            try {
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+                ps.setInt(1, ownerId);
+                rs = ps.executeQuery();
+
+                V_VEHICLE vehicle;
+
+                while(rs.next()){
+                    vehicle = new V_VEHICLE(rs.getInt("id"), rs.getInt("type"), rs.getInt("ownerId"), rs.getString("price"), rs.getString("kilometers"), rs.getString("brand"), rs.getString("motor"), rs.getString("color"), rs.getString("gear"), rs.getInt("doors"), rs.getInt("seats"), rs.getInt("year"), rs.getBoolean("ac"), rs.getBoolean("gps"), rs.getBoolean("cas"), rs.getBoolean("ps"), rs.getString("problems"));
+
+                    list.add(vehicle);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return list;
+        }
+
+      //function to add images to the vehicle
+      public boolean addImage (int vehicleId, String theImagePath){
+        
+        PreparedStatement ps;
+        
+        String addQuery = "INSERT INTO `vehicle_images`( `vehicle_id`, `image`) VALUES (?,?)";
+        
+        try {
+            try {
+                FileInputStream vehicleImage = new FileInputStream(new File(theImagePath));
+                
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(addQuery);
+                ps.setInt(1, vehicleId);
+                ps.setBinaryStream(2,vehicleImage);
+                
+                return(ps.executeUpdate() > 0);
+                
+            } catch (FileNotFoundException ex) {
+                //Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage() + "Invalid File", "Image ERROR", 2);
+                return false;
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+      
+    }
+
+      
+      //function to get list of images by vehicle
+      public HashMap<byte[], Integer> vehicleImageList(int vehicleId){
+
+            HashMap<byte[], Integer> list = new HashMap<>();
+            PreparedStatement ps;
+            ResultSet rs;
+            String selectQuery = "SELECT * FROM `vehicle_images` WHERE `vehicle_id`=?";
+
+            try {
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+                ps.setInt(1, vehicleId);
+                rs = ps.executeQuery();
+
+          
+
+                while(rs.next()){
+                    list.put(rs.getBytes("image"), rs.getInt("id"));
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return list;
+        }
+      
+      public byte[] getImageById(int imageId){
+
+            byte[] image;
+            PreparedStatement ps;
+            ResultSet rs;
+            String selectQuery = "SELECT `image` FROM `vehicle_images` WHERE `id`=?";
+
+            try {
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+                ps.setInt(1, imageId);
+                rs = ps.executeQuery();
+
+          
+
+                if(rs.next()){
+                    return rs.getBytes("image");
+                } else{
+                    return null;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+
+        }
+      public boolean removeVehicleImage (int imageId){
+
+            
+            PreparedStatement ps;
+            ResultSet rs;
+            String deleteQuery = "DELETE FROM `vehicle_images` WHERE `id`=?";
+
+            try {
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery);
+                ps.setInt(1, imageId);
+                
+
+                return (ps.executeUpdate()>0);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(V_VEHICLE.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+
+        }
     }
 
 
-//function to return a list of vehicle depending on the selected type
+
 
    
