@@ -5,8 +5,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -28,14 +31,20 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
      * 
      */
     
-     V_TYPE type = new V_TYPE();
+    V_TYPE type = new V_TYPE();
     HashMap<String, Integer> map = type.getTypesMap();
+    String vehicleImagePath ="";
+    int vehicleId=0;
     
     public Vehicle_Images_Window() {
         initComponents();
         
         Border panel_border = BorderFactory.createMatteBorder(0,0,4,0, new Color(61, 0, 0));
         jPanel_Title1.setBorder(panel_border);
+        
+        Border image_border = BorderFactory.createMatteBorder(1,1,1,1, new Color(255, 255, 255));
+        jLabel_Image.setBorder(image_border);
+        
         
         bindCombo();
         
@@ -185,6 +194,11 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
 
             }
         ));
+        jTable_Vehicles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_VehiclesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_Vehicles);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
@@ -195,6 +209,7 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
         jButton_Browse_Image.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jButton_Browse_Image.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Browse_Image.setText("Browse");
+        jButton_Browse_Image.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_Browse_Image.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Browse_ImageActionPerformed(evt);
@@ -208,6 +223,11 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
         jLabel_Image.setOpaque(true);
 
         jList1.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList1);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
@@ -307,23 +327,85 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
     private void jButton_Add_ImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_ImageActionPerformed
 
         //add images to the vehicle
+        V_VEHICLE vehicle = new V_VEHICLE();
+        
+        if(vehicleId!=0){
+            if(vehicle.addImage(vehicleId, vehicleImagePath)){
+            JOptionPane.showMessageDialog(null, "Image Added To This Vehicle", "Add Image", 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Image NOT Added To This Vehicle", "Add Image", 2);
+        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Select The Vehicle First", "Vehicle Not Selected", 2);
+        }
+        
 
     }//GEN-LAST:event_jButton_Add_ImageActionPerformed
 
     private void jButton_Edit_Show_ImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_Show_ImagesActionPerformed
 
-        //show the selected vehicle images in a slider
+        try{
+            
+            //show the selected vehicle images in a slider
+            
+
+            int rowIndex = jTable_Vehicles.getSelectedRow();
+            int id = Integer.valueOf(jTable_Vehicles.getValueAt(rowIndex, 0).toString());
+           
+            if(jList1.getModel().getSize()>0){
+                Vehicle_Images_Slider imageForm = new Vehicle_Images_Slider(id);
+                imageForm.setVisible(true);
+                imageForm.pack();
+                imageForm.setLocationRelativeTo(null);
+                imageForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }else {
+                JOptionPane.showMessageDialog(null, "This Vehicle Does Not Contain Images", "No Images Found", 2);
+            }
+           
+            
+           
+            
+        } 
+        catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Select The Vehicle First", "Vehicle Not Selected", 2);
+        }
+        
+        
+        
 
     }//GEN-LAST:event_jButton_Edit_Show_ImagesActionPerformed
 
     private void jButton_Remove_ImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Remove_ImageActionPerformed
 
         //remove the selected image
+        try{
+            String selectedListItem = String.valueOf(jList1.getSelectedValue());
+            Integer imageId = Integer.valueOf(selectedListItem);
+            int yes_or_no = JOptionPane.showConfirmDialog(null, "Do you want to delete this image?", "Delete Image", JOptionPane.YES_NO_OPTION );
+
+            if(yes_or_no == JOptionPane.YES_OPTION){
+
+                        if(new V_VEHICLE().removeVehicleImage(imageId)){
+                            JOptionPane.showMessageDialog(null, "Vehicle Image Deleted", "Delete Image", 1);
+                            jLabel_Image.setIcon(null);
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Operation Failed, Image Not Deleted", "Delete Image", 2);
+                        }
+        }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "No Image Selected", "Delete Image", 2);
+        }
        
     }//GEN-LAST:event_jButton_Remove_ImageActionPerformed
 
-    public ImageIcon resizeImage(String path){
-        Image img = new ImageIcon(path).getImage().getScaledInstance(jLabel_Image.getWidth(), jLabel_Image.getHeight(), Image.SCALE_SMOOTH);
+    public ImageIcon resizeImage(String path, byte[] byteImage){
+        
+        ImageIcon pic;
+        if(byteImage != null) pic = new ImageIcon(byteImage);
+        else pic = new ImageIcon(path);
+        
+        Image img = pic.getImage().getScaledInstance(jLabel_Image.getWidth(), jLabel_Image.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(img);
         
         return image;
@@ -334,7 +416,7 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
         //browse image on computer
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select The Vehicle Image");
-        fileChooser.setCurrentDirectory(new File("C:\\"));
+        fileChooser.setCurrentDirectory(new File("C:\\Users\\Lea\\Desktop\\Projektici\\Images"));
         
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Images", ".jpg", ".png", ".jpeg");
         fileChooser.addChoosableFileFilter(fileFilter);
@@ -343,7 +425,8 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
         
         if(fileState == JFileChooser.APPROVE_OPTION){
             String path = fileChooser.getSelectedFile().getAbsolutePath();
-            jLabel_Image.setIcon(resizeImage(path));
+            jLabel_Image.setIcon(resizeImage(path, null));
+            vehicleImagePath = path;
         }
         
         
@@ -373,6 +456,50 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jComboBox_TypesActionPerformed
 
+    private void jTable_VehiclesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_VehiclesMouseClicked
+        
+        int rowIndex = jTable_Vehicles.getSelectedRow();
+        vehicleId = Integer.valueOf(jTable_Vehicles.getValueAt(rowIndex, 0).toString());
+        
+        
+        fillTypeList();
+        
+    }//GEN-LAST:event_jTable_VehiclesMouseClicked
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        
+       try{
+            String selectedListItem = String.valueOf(jList1.getSelectedValue());
+            Integer imageId = Integer.valueOf(selectedListItem);
+            byte [] image = new V_VEHICLE().getImageById(imageId);
+        
+        jLabel_Image.setIcon(resizeImage("", image));
+        
+       } catch(Exception ex){
+           
+       }
+        
+       
+        
+    }//GEN-LAST:event_jList1MouseClicked
+
+    public void fillTypeList(){
+        
+        HashMap<byte[], Integer> imagesList = new V_VEHICLE().vehicleImageList(vehicleId);
+        
+        DefaultListModel listModel = new DefaultListModel();
+        int i = 0;
+        
+        for(Integer id: imagesList.values()){
+            
+            listModel.add(i, id);
+            i++;
+        }
+        
+        jList1.setModel(listModel);
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -410,8 +537,6 @@ public class Vehicle_Images_Window extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add_Image;
-    private javax.swing.JButton jButton_Add_Type;
-    private javax.swing.JButton jButton_Add_Type1;
     private javax.swing.JButton jButton_Browse_Image;
     private javax.swing.JButton jButton_Edit_Show_Images;
     private javax.swing.JButton jButton_Remove_Image;
