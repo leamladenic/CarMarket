@@ -9,4 +9,36 @@ I was using XAMPP server panel (version 3.2.4) where you can start MySQL and Apa
 
 ## About project
 First window in the app is Login window where users insert their username and password, which are stored in our database.
+
 ![Login](Screenshots/login_window.jpg)
+
+After login window users can see Main window, which contains main app menu: 
+
+![Login](Screenshots/main_window.jpg)
+
+From this window users can open various windows. First of them is Vehicle window, where user can add new vehicle in our DB, edit 
+existing vehicles or delete them. Also from this window user can see all vehicles that are in our DB. 
+
+![Login](Screenshots/vehicles_window.jpg)
+
+Second one is Vehicle Type window, where user can add new type of vehicle in our DB. 
+
+![Login](Screenshots/vehicle_type.jpg)
+
+Third one is Vehicle Images window, where user can add or remove images of specific vehicles (that are listed in the window).
+
+![Login](Screenshots/vehicle_image.jpg)
+
+Next one is Owner window in which users can add, edit or delete owners in our DB, and also see which vehicles they owe.
+
+![Login](Screenshots/owners_window.jpg)
+
+Next one is Client window in which users can add, edit or delete clients in our DB.
+
+![Login](Screenshots/clients_window.jpg)
+
+And the last one is Sale window, which connects vehicles, owners and clients and contain sales. 
+
+![Login](Screenshots/sale_window.jpg)
+
+
