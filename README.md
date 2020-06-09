@@ -7,4 +7,6 @@ App is functional with mySQL database (through XAMPP server), which contains sev
 ## How to start
 I was using XAMPP server panel (version 3.2.4) where you can start MySQL and Apache server. There is possibility you will need to change port numbers, which you can do directly from this panel (Logs and Config buttons). Also from XAMPP localhost you can directly start and enter to PhpMyAdmin. My database has been exported to github, so it can be used. 
 
-
+## About project
+First window in the app is Login window where users insert their username and password, which are stored in our database.
+![Login](login_window.jpg)
