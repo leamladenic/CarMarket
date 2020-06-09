@@ -9,4 +9,4 @@ I was using XAMPP server panel (version 3.2.4) where you can start MySQL and Apa
 
 ## About project
 First window in the app is Login window where users insert their username and password, which are stored in our database.
-![Login](login_window.jpg)
+![Login](Screenshots/login_window.jpg)
