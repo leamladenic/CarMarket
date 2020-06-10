@@ -31,7 +31,7 @@ Third one is Vehicle Images window, where user can add or remove images of speci
 
 Next one is Owner window in which users can add, edit or delete owners in our DB, and also see which vehicles they owe.
 
-![Login](Screenshots/owners_window.jpg)
+![Login](Screenshots/owner_window.jpg)
 
 Next one is Client window in which users can add, edit or delete clients in our DB.
 
