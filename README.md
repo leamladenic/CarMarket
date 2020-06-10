@@ -37,7 +37,7 @@ Next one is Client window in which users can add, edit or delete clients in our 
 
 ![Login](Screenshots/clients_window.jpg)
 
-And the last one is Sale window, which connects vehicles, owners and clients and contain sales. 
+And the last one is Sale window, which connects vehicles, owners and clients and contain all sales. 
 
 ![Login](Screenshots/sale_window.jpg)
 
